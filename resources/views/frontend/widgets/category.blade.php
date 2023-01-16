@@ -6,7 +6,7 @@
         <div class="list-group">
             @foreach($categories as $category)
                 <li class="list-group-item">
-                    <a href="#" >{{$category->name}} </a> <span class="badge bg-success float-right">2</span>
+                    <a href="#" >{{$category->name}} </a> <span class="badge bg-success" style="float: right">2</span>
                 </li>
             @endforeach
         </div>

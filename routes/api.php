@@ -40,7 +40,8 @@ Route::post('/login', function (Request $request){
     $user = User::where('name',$request->name)->first();
 
     if ($user == null){
-        return response()->json(['message'=> 'Kullanıcı adı bulunamadı...']);
+
+        return response()->json(['status'=>0, 'msg'=>'Kullanıcı adı bulunamadı...'],403);
     } else if ($request->name == $user['name'] && $request->password == $user['password']) {
         $secretKey = getenv('TOKEN_SECRET_KEY');
         $payload = array(
@@ -53,7 +54,7 @@ Route::post('/login', function (Request $request){
         $token = JWT::encode($payload, $secretKey, 'HS256');
         return response()->json(['token'=> $token]);
     } else{
-        return response()->json(['message'=> 'Yanlış şifre girdiniz...']);
+        return response()->json(['status'=>0, 'msg'=>'Yanlış şifre girdiniz...'],403);
     }
 
 });

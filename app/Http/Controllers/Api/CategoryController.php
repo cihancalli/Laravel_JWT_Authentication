@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Item;
 use Illuminate\Http\Request;
+use App\Models\Category;
 
-class ItemController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,8 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $items = Item::all();
-        return $items;
+        $categories = Category::all();
+        return $categories;
     }
 
     /**
@@ -27,14 +27,12 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        $item = new Item();
-        $item->name = $request->name;
-        $item->desc = $request->desc;
-        $item->quantity = $request->quantity;
+        $category = new Category();
+        $category->name = $request->name;
+        $category->slug = $request->desc;
 
-        $item->save();
-        return response()->json(['message'=>'İtem kayıt işlemi başarılı...']);
-
+        $category->save();
+        return response()->json(['message'=>'Kategori kayıt işlemi başarılı...']);
     }
 
     /**
@@ -45,8 +43,8 @@ class ItemController extends Controller
      */
     public function show($id)
     {
-        $item = Item::find($id);
-        return $item;
+        $category = Category::find($id);
+        return $category;
     }
 
     /**
@@ -58,13 +56,11 @@ class ItemController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $item = Item::findOrFail($id);
-        $item->name = $request->name;
-        $item->desc = $request->desc;
-        $item->quantity = $request->quantity;
-        $item->save();
-        return $item;
-
+        $category = Category::findOrFail($id);
+        $category->name = $request->name;
+        $category->slug = $request->desc;
+        $category->save();
+        return $category;
     }
 
     /**
@@ -75,7 +71,7 @@ class ItemController extends Controller
      */
     public function destroy($id)
     {
-        $items = Item::destroy($id);
-        return response()->json(['message'=>'İtem silme işlemi başarılı...']);
+        $category = Category::destroy($id);
+        return response()->json(['message'=>'Kategori silme işlemi başarılı...']);
     }
 }

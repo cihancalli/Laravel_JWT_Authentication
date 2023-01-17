@@ -28,6 +28,22 @@ Route::controller(\App\Http\Controllers\Api\ItemController::class)->group(functi
     Route::delete('/item/{id}','destroy')->middleware(['jwt']);
 });
 
+Route::controller(\App\Http\Controllers\Api\ArticleController::class)->group(function () {
+    Route::get('/articles','index')->middleware(['jwt']);
+    Route::get('/article/{id}','show')->middleware(['jwt']);
+    Route::post('/article','store')->middleware(['jwt']);
+    Route::put('/article/{id}','update')->middleware(['jwt']);
+    Route::delete('/article/{id}','destroy')->middleware(['jwt']);
+});
+
+Route::controller(\App\Http\Controllers\Api\CategoryController::class)->group(function () {
+    Route::get('/categories','index')->middleware(['jwt']);
+    Route::get('/category/{id}','show')->middleware(['jwt']);
+    Route::post('/category','store')->middleware(['jwt']);
+    Route::put('/category/{id}','update')->middleware(['jwt']);
+    Route::delete('/category/{id}','destroy')->middleware(['jwt']);
+});
+
 Route::controller(\App\Http\Controllers\Api\UserController::class)->group(function () {
     Route::get('/users','index');
     Route::get('/user/{id}','show');

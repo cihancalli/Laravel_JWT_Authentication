@@ -15,16 +15,17 @@
                 <!-- Post meta content-->
                 <div class="text-muted fst-italic mb-2">{{$article->created_at->diffForHumans()}}</div>
                 <!-- Post categories-->
-                <a class="badge bg-secondary text-decoration-none link-light" href="#!">{{$article->getCategory->name}} </a>
+                <a class="badge bg-secondary text-decoration-none link-light"
+                   href="#!">{{$article->getCategory->name}} </a>
                 <span class="badge bg-info text-white" style="float: right"><i class="fa-solid fa-eye"></i> {{$article->hit}}</span>
             </header>
             <!-- Preview image figure-->
-            <figure class="mb-4"><img class="img-fluid rounded" src="{{$article->image}}" alt="..." /></figure>
+            <figure class="mb-4"><img class="img-fluid rounded" src="{{$article->image}}" alt="..."/></figure>
             <!-- Post content-->
             <section class="mb-5">{{$article->content}}</section>
         </article>
 
 
     </div>
-    @include('frontend.widgets.category')
+    @include('frontend.widgets.categoryWidget')
 @endsection

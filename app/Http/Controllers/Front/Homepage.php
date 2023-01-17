@@ -25,4 +25,12 @@ class Homepage extends Controller
         $data['categories'] = Category::inRandomOrder()->get();
         return view('frontend.single',$data);
     }
+
+    public function category($slug) {
+        $category = Category::whereSlug($slug)->first() ?? abort(403,'Böylebir Kategori bulunamadı');
+        $data['articles'] =Article::whereCategoryId($category->id)->orderBy('created_at','DESC')->get();
+        $data['category'] = $category;
+        $data['categories'] = Category::inRandomOrder()->get();
+        return view('frontend.category',$data);
+    }
 }

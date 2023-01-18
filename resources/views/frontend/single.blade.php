@@ -1,6 +1,5 @@
 @extends('frontend.layouts.master')
 @section('title',$article->title)
-@section('pageTitle',$article->getCategory->name)
 @section('bg',$article->image)
 @section('content')
     <!-- Post Content-->

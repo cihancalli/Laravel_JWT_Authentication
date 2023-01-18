@@ -17,3 +17,4 @@ Route::get('/', 'App\Http\Controllers\Front\Homepage@index')->name('homepage');
 Route::get('yazilar/sayfa', 'App\Http\Controllers\Front\Homepage@index');
 Route::get('/kategori/{category}', 'App\Http\Controllers\Front\Homepage@category')->name('category');
 Route::get('/blog/{category}/{slug}', 'App\Http\Controllers\Front\Homepage@single')->name('single');
+Route::get('/{page}', 'App\Http\Controllers\Front\Homepage@page')->name('page');

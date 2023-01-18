@@ -28,6 +28,14 @@ Route::controller(\App\Http\Controllers\Api\ItemController::class)->group(functi
     Route::delete('/item/{id}','destroy')->middleware(['jwt']);
 });
 
+Route::controller(\App\Http\Controllers\Api\PagesController::class)->group(function () {
+    Route::get('/pages','index');
+    Route::get('/page/{id}','show');
+    Route::post('/page','store');
+    Route::put('/page/{id}','update')->middleware(['jwt']);
+    Route::delete('/page/{id}','destroy')->middleware(['jwt']);
+});
+
 Route::controller(\App\Http\Controllers\Api\ArticleController::class)->group(function () {
     Route::get('/articles','index');
     Route::get('/article/{id}','show');
@@ -56,16 +64,15 @@ Route::post('/login', function (Request $request){
     $user = User::where('name',$request->name)->first();
 
     if ($user == null){
-
         return response()->json(['status'=>0, 'msg'=>'Kullanıcı adı bulunamadı...'],403);
     } else if ($request->name == $user['name'] && $request->password == $user['password']) {
         $secretKey = getenv('TOKEN_SECRET_KEY');
         $payload = array(
             "iat" => time(),
             "exp" => time()+ 60 * 60 * 1,
-            "uid" => 13,
-            "username" => 'cihancalli',
-            "email" => 'cihan.callii@gmail.com'
+            "uid" => $user->id,
+            "username" => $user->name,
+            "email" => $user->email
         );
         $token = JWT::encode($payload, $secretKey, 'HS256');
         return response()->json(['token'=> $token]);
@@ -79,19 +86,3 @@ Route::post('/login', function (Request $request){
 Route::post('/task',function () {
     return response()->json(['Taslaklar']);
 })->middleware(['jwt']);
-
-/*
- * if ($request->name == 'cihan' && $request->password == '123456123456'){
-        $secretKey = getenv('TOKEN_SECRET_KEY');
-
-        $payload = array(
-            "iat" => time(),
-            "exp" => time()+ 60 * 60 * 1,
-            "uid" => 13,
-            "username" => 'cihancalli',
-            "email" => 'cihan.callii@gmail.com'
-        );
-        $token = JWT::encode($payload, $secretKey, 'HS256');
-        return response()->json(['token'=> $token]);
-    }
- */

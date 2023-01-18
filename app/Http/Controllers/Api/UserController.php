@@ -27,12 +27,12 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $users = new User();
-        $users->name = $request->name;
-        $users->email = $request->email;
-        $users->password = $request->password;
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = $request->password;
 
-        $users->save();
+        $user->save();
         return response()->json(['message'=>'Kullanıcı Kayıt işlemi başarılı...']);
     }
 
@@ -44,7 +44,11 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user =  User::find($id);
+        if ($user == null){
+            return response()->json(['message'=>'Aradığınız kullanıcı bulunamadı...'],404);
+        }
+		return $user;
     }
 
     /**
@@ -56,7 +60,14 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = $request->password;
+
+        $user->save();
+        return $user;
     }
 
     /**
@@ -67,6 +78,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::destroy($id);
+        return response()->json(['message'=>'kullanıcı silme işlemi başarılı...']);
     }
 }

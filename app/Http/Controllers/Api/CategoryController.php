@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -29,7 +30,7 @@ class CategoryController extends Controller
     {
         $category = new Category();
         $category->name = $request->name;
-        $category->slug = $request->slug;
+        $category->slug = Str::slug($request->name);
 
         $category->save();
         return response()->json(['message'=>'Kategori kayıt işlemi başarılı...']);
@@ -44,6 +45,9 @@ class CategoryController extends Controller
     public function show($id)
     {
         $category = Category::find($id);
+        if ($category == null){
+            return response()->json(['message'=>'Aradığınız kategori bulunamadı...'],404);
+        }
         return $category;
     }
 
@@ -58,7 +62,7 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($id);
         $category->name = $request->name;
-        $category->slug = $request->slug;
+        $category->slug = Str::slug($request->name);
         $category->save();
         return $category;
     }

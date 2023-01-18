@@ -22,7 +22,7 @@
             <!-- Preview image figure-->
             <figure class="mb-4"><img class="img-fluid rounded" src="{{$article->image}}" alt="..."/></figure>
             <!-- Post content-->
-            <section class="mb-5">{{$article->content}}</section>
+            <section class="mb-5">{{$article->contents}}</section>
         </article>
 
 

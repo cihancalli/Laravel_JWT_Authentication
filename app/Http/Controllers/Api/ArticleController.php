@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Article;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 
 class ArticleController extends Controller
@@ -33,7 +34,7 @@ class ArticleController extends Controller
         $article->title = $request->title;
         $article->image = $request->image;
         $article->contents = $request->contents;
-        $article->slug = $request->slug;
+        $article->slug = Str::slug($request->title);
 
         $article->save();
         return response()->json(['message'=>'Yazı kayıt işlemi başarılı...']);
@@ -48,6 +49,9 @@ class ArticleController extends Controller
     public function show($id)
     {
         $article = Article::find($id);
+        if ($article == null){
+            return response()->json(['message'=>'Aradığınız yazı bulunamadı...'],404);
+        }
         return $article;
     }
 
@@ -65,7 +69,7 @@ class ArticleController extends Controller
         $article->title = $request->title;
         $article->image = $request->image;
         $article->contents = $request->contents;
-        $article->slug = $request->slug;
+        $article->slug = Str::slug($request->title);
 
         $article->save();
         return $article;

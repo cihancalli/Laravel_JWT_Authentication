@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('category_id');
             $table->string('title');
             $table->string('image');
-            $table->longText('content');
+            $table->longText('contents');
             $table->integer('hit')->default(0);
             $table->integer('status')->default(1)->comment('0:pasif 1:aktif');
             $table->string('slug');

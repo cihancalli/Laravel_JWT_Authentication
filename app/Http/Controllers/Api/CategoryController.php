@@ -29,7 +29,7 @@ class CategoryController extends Controller
     {
         $category = new Category();
         $category->name = $request->name;
-        $category->slug = $request->desc;
+        $category->slug = $request->slug;
 
         $category->save();
         return response()->json(['message'=>'Kategori kayıt işlemi başarılı...']);
@@ -58,7 +58,7 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($id);
         $category->name = $request->name;
-        $category->slug = $request->desc;
+        $category->slug = $request->slug;
         $category->save();
         return $category;
     }

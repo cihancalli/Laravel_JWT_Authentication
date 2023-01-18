@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Article;
+use Illuminate\Http\Request;
+
 
 class ArticleController extends Controller
 {
@@ -31,9 +32,7 @@ class ArticleController extends Controller
         $article->category_id  = $request->category_id;
         $article->title = $request->title;
         $article->image = $request->image;
-        $article->content = $request->contents;
-        $article->hit = $request->hit;
-        $article->status = $request->status;
+        $article->contents = $request->contents;
         $article->slug = $request->slug;
 
         $article->save();
@@ -65,10 +64,9 @@ class ArticleController extends Controller
         $article->category_id  = $request->category_id;
         $article->title = $request->title;
         $article->image = $request->image;
-        $article->content = $request->contents;
-        $article->hit = $request->hit;
-        $article->status = $request->status;
+        $article->contents = $request->contents;
         $article->slug = $request->slug;
+
         $article->save();
         return $article;
     }

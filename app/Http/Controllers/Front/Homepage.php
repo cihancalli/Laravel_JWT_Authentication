@@ -4,12 +4,16 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Pagination\Paginator;
+
+use Validator;
 
 //Models
 use App\Models\Category;
 use App\Models\Article;
 use App\Models\Pages;
+use App\Models\Contact;
+
+
 
 class Homepage extends Controller
 {
@@ -19,7 +23,7 @@ class Homepage extends Controller
     }
     public function index() {
         $data['articles'] = Article::orderBy('created_at','DESC')->paginate(1);
-        $data['articles']->withPAth(url('yazilar/sayfa'));
+        $data['articles']->withPAth(url('/s'));
         return view('frontend.homepage',$data);
     }
 
@@ -42,6 +46,32 @@ class Homepage extends Controller
         $page = Pages::whereSlug($slug)->first() ?? abort(403,'Böylebir sayfa bulunamadı...');
         $data['page'] = $page;
         return view('frontend.page',$data);
+    }
+
+    public function contact() {
+        return view('frontend.contact');
+    }
+
+    public function contactpost(Request $request){
+        $rules=[
+            'name'=>'required|min:5',
+            'email'=>'required|email',
+            'phone'=>'required',
+            'message'=>'required|min:10'
+        ];
+        $validate=Validator::make($request->post(),$rules);
+
+        if($validate->fails()){
+            return redirect()->route('contact')->withErrors($validate)->withInput();
+        }
+
+        $contact = new Contact;
+        $contact->name = $request->name;
+        $contact->email = $request->email;
+        $contact->phone = $request->phone;
+        $contact->message = $request->message;
+        $contact->save();
+        return redirect()->route('contact')->with('success','Mesajınız bize iletildi. Teşekkür ederiz!');
     }
 
 
